@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lume Tech | Premium Support & Global Innovation</title>
+    <style>
+      /* Variáveis CSS - Tema Futurista Espacial */
+      :root {
+        --gold: #d4af37;
+        --cyan: #26c6da;
+        --dark: #060913;
+        --text: #e0f7fa;
+        --muted: #8a96b5;
+        --panel: rgba(10, 16, 30, 0.65);
+        --glow-color: rgba(38, 198, 218, 0.3);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at 50% 20%, rgba(20, 35, 60, 0.8) 0%, rgba(5, 8, 18, 0.95) 70%, #02040a 100%),
+                    url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1920&auto=format&fit=crop') center/cover fixed;
+        background-attachment: fixed;
+      }
+
+      /* TELA DE INTRO COM FUNDO DE ESPAÇO E GALÁXIAS */
+      #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(5, 8, 18, 0.4) 0%, rgba(2, 4, 10, 0.85) 100%),
+                    url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+      }
+
+      .preloader-logo {
+        max-width: 320px;
+        width: 80%;
+        height: auto;
+        border: none;
+        box-shadow: none;
+        animation: logoPulse 2s infinite alternate ease-in-out;
+      }
+
+      @keyframes logoPulse {
+        0% {
+          transform: scale(0.96);
+          opacity: 0.85;
+        }
+        100% {
+          transform: scale(1.04);
+          opacity: 1;
+        }
+      }
+
+      .preloader-hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      /* MENU DE NAVEGAÇÃO FIXO */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(5, 8, 18, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(38, 198, 218, 0.2);
+        z-index: 1000;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-brand {
+        color: var(--cyan);
+        font-weight: bold;
+        font-size: 1.2rem;
+        letter-spacing: 0.15em;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--cyan);
+        text-shadow: 0 0 8px var(--glow-color);
+      }
+
+      header {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 20px 40px;
+      }
+
+      .hero {
+        width: 100%;
+        max-width: 1100px;
+        background: var(--panel);
+        border: 1px solid rgba(38, 198, 218, 0.25);
+        border-radius: 24px;
+        padding: 60px;
+        backdrop-filter: blur(16px);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 0 25px rgba(38, 198, 218, 0.15);
+        text-align: center;
+      }
+
+      .logo-container {
+        margin-bottom: 20px;
+      }
+
+      .logo-img {
+        max-width: 450px;
+        width: 100%;
+        height: auto;
+        border: none;
+        box-shadow: none;
+      }
+
+      .brand {
+        color: var(--cyan);
+        font-size: 14px;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        margin-top: 15px;
+        margin-bottom: 12px;
+        font-weight: 700;
+      }
+
+      h1 {
+        color: #ffffff;
+        text-shadow: 0 0 12px var(--glow-color);
+        font-size: clamp(2.2rem, 4vw, 3.5rem);
+        margin: 0 0 16px;
+        line-height: 1.1;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        color: var(--muted);
+        max-width: 700px;
+        margin: 0 auto 28px;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 13px 24px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      .btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 12px 30px var(--glow-color);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--cyan), #00acc1);
+        color: #050812;
+        box-shadow: 0 8px 20px rgba(38, 198, 218, 0.4);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .hero-img {
+        margin-top: 40px;
+        width: 100%;
+        max-width: 850px;
+        border-radius: 20px;
+        border: 2px solid rgba(38, 198, 218, 0.3);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 60px 20px 80px;
+      }
+
+      section h2 {
+        color: var(--cyan);
+        font-size: 2rem;
+        border-bottom: 3px solid rgba(38, 198, 218, 0.4);
+        display: inline-block;
+        padding-bottom: 8px;
+        margin-bottom: 30px;
+      }
+
+      /* ESTILOS DA SEÇÃO SOBRE A PROGRAMAÇÃO, APPS E RECOMENDAÇÃO */
+      .about-container {
+        background: var(--panel);
+        border: 1px solid rgba(38, 198, 218, 0.25);
+        border-radius: 20px;
+        padding: 40px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        line-height: 1.8;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+      }
+
+      .about-card {
+        background: rgba(5, 8, 18, 0.6);
+        border: 1px solid rgba(38, 198, 218, 0.2);
+        border-radius: 14px;
+        padding: 25px;
+      }
+
+      .about-card h3 {
+        color: var(--cyan);
+        margin-top: 0;
+        font-size: 1.25rem;
+      }
+
+      .about-card p {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-bottom: 0;
+      }
+
+      /* BLOCO DE RECOMENDAÇÃO / POR QUE NOS ESCOLHER */
+      .why-choose-us {
+        margin-top: 40px;
+        background: linear-gradient(135deg, rgba(38, 198, 218, 0.1) 0%, rgba(5, 8, 18, 0.8) 100%);
+        border: 2px solid var(--cyan);
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 0 25px rgba(38, 198, 218, 0.15);
+      }
+
+      .why-choose-us h3 {
+        color: #ffffff;
+        font-size: 1.5rem;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .why-choose-us ul {
+        padding-left: 20px;
+        margin-bottom: 25px;
+      }
+
+      .why-choose-us li {
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .why-choose-us li strong {
+        color: var(--cyan);
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 15px var(--glow-color);
+        border-color: var(--cyan);
+      }
+
+      .card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 16px;
+        border: 1px solid rgba(38, 198, 218, 0.3);
+      }
+
+      .card h3 {
+        margin-top: 0;
+        color: var(--cyan);
+        font-weight: 600;
+      }
+
+      .card-click-hint {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 0.85rem;
+        color: var(--cyan);
+        font-weight: bold;
+      }
+
+      .catalog {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 20px;
+      }
+
+      .plan {
+        background: var(--panel);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 18px;
+        padding: 30px;
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .plan:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .plan .level {
+        color: var(--cyan);
+        font-size: 0.8rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .plan h3 {
+        margin: 0 0 10px;
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .price {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 8px 0 14px;
+        color: var(--cyan);
+      }
+
+      .plan ul {
+        padding-left: 0;
+        list-style: none;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .plan ul li::before {
+        content: '✦ ';
+        color: var(--cyan);
+      }
+
+      .plan.featured {
+        border-color: var(--cyan);
+        box-shadow: 0 0 20px rgba(38, 198, 218, 0.25);
+      }
+
+      .contact-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        background: var(--panel);
+        border: 1px solid rgba(38, 198, 218, 0.25);
+        border-radius: 20px;
+        padding: 40px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(38, 198, 218, 0.15);
+        border: 1px solid var(--cyan);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        color: var(--cyan);
+      }
+
+      .contact-details h4 {
+        margin: 0;
+        color: var(--cyan);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .contact-details a, .contact-details p {
+        margin: 4px 0 0;
+        color: #ffffff;
+        font-size: 1.1rem;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .contact-details a:hover {
+        color: var(--cyan);
+        text-shadow: 0 0 8px var(--glow-color);
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 14px 18px;
+        background: rgba(5, 8, 18, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        color: #ffffff;
+        font-family: inherit;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus, .form-group textarea:focus {
+        border-color: var(--cyan);
+        box-shadow: 0 0 10px var(--glow-color);
+      }
+
+      /* BOTÃO FLUTUANTE DO WHATSAPP */
+      .whatsapp-float {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 60px;
+        height: 60px;
+        background-color: #25d366;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(37, 211, 102, 0.5);
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: waPulse 2s infinite alternate;
+      }
+
+      .whatsapp-float:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 25px rgba(37, 211, 102, 0.8);
+      }
+
+      .whatsapp-float svg {
+        width: 34px;
+        height: 34px;
+        fill: white;
+      }
+
+      @keyframes waPulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+        }
+      }
+
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(6, 9, 19, 0.92);
+        backdrop-filter: blur(12px);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .modal-content {
+        background: var(--panel);
+        border: 2px solid var(--cyan);
+        border-radius: 20px;
+        padding: 25px;
+        max-width: 1000px;
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+        text-align: center;
+        box-shadow: 0 0 30px var(--glow-color);
+        position: relative;
+      }
+
+      .modal-content h3 {
+        color: var(--cyan);
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .modal-content img {
+        width: 100%;
+        height: auto;
+        max-height: 70vh;
+        object-fit: contain;
+        border-radius: 12px;
+        border: 1px solid rgba(38, 198, 218, 0.4);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 32px;
+        cursor: pointer;
+        line-height: 1;
+        transition: color 0.2s ease;
+      }
+
+      .close-btn:hover {
+        color: var(--cyan);
+      }
+
+      footer {
+        text-align: center;
+        padding: 30px;
+        color: #9ca3af;
+        font-size: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(2, 4, 10, 0.8);
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          padding: 30px 20px;
+        }
+        .contact-container {
+          padding: 25px;
+        }
+        .nav-links {
+          gap: 12px;
+          font-size: 0.85rem;
+        }
+        .whatsapp-float {
+          width: 50px;
+          height: 50px;
+          bottom: 20px;
+          right: 20px;
+        }
+        .whatsapp-float svg {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Tela de Carregamento Inicial com a Logo + Espaço Profundo -->
+    <div id="preloader">
+      <img src="lumetech2.png" alt="Lume Tech Logo" class="preloader-logo" />
+    </div>
+
+    <!-- Menu de Navegação -->
+    <nav>
+      <a href="#" class="nav-brand">LUME TECH</a>
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#catalogo">Planos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+
+    <header>
+      <div class="hero">
+        <div class="logo-container">
+          <img src="lumetech2.png" alt="Lume Tech Logo" class="logo-img" />
+        </div>
+        <div class="brand">Lume Tech</div>
+        <h1>Elegância, Tecnologia e Soluções de Alto Padrão.</h1>
+        <p class="subtitle">
+          Apresente seus serviços com uma imagem sofisticada, moderna e memorável. Criamos sites, plataformas web e aplicativos móveis para impulsionar a sua empresa no futuro digital.
+        </p>
+        <div class="buttons">
+          <a href="#servicos" class="btn btn-primary">Ver Serviços</a>
+          <a href="#contato" class="btn btn-secondary">Fale Comigo</a>
+        </div>
+        
+      </div>
+    </header>
+
+    <main>
+      <!-- SEÇÃO SOBRE A TECNOLOGIA E DESENVOLVIMENTO DE APPS -->
+      <section id="sobre" style="margin-bottom: 60px;">
+        <h2>Sobre a Tecnologia</h2>
+        <div class="about-container">
+          <p style="font-size: 1.1rem; color: #ffffff; margin-top: 0;">
+            A história da tecnologia moderna é marcada por grandes transformações: desde a invenção da **programação**, a criação da **Internet**, até a explosão dos **Aplicativos Móveis**. A Lume Tech integra essa constante evolução em soluções sob medida.
+          </p>
+
+          <div class="about-grid">
+            <div class="about-card">
+              <h3>🚀 A Evolução da Programação</h3>
+              <p>
+                A programação evoluiu de cartões perfurados para linguagens modernas como C#, .NET e JavaScript. Hoje, algoritmos sofisticados processam dados em milissegundos na nuvem, garantindo estabilidade e escalabilidade.
+              </p>
+            </div>
+
+            <div class="about-card">
+              <h3>🌐 O Desenvolvimento da Internet</h3>
+              <p>
+                De rede militar na ARPANET à Web3 descentralizada, a internet se tornou a espinha dorsal dos negócios mundiais. Estar presente com um ecossistema digital forte é essencial para qualquer marca líder.
+              </p>
+            </div>
+
+            <div class="about-card">
+              <h3>📱 A Era dos Aplicativos Móveis</h3>
+              <p>
+                Surgidos com o lançamento dos smartphones modernos em 2007, os aplicativos mudaram o comportamento global. Com linguagens como Swift, Kotlin e frameworks híbridos como Flutter e React Native, os apps colocam o seu negócio diretamente no bolso do cliente final, garantindo engajamento e vendas 24/7.
+              </p>
+            </div>
+
+            <div class="about-card">
+              <h3>✦ Soluções Sob Medida Lume Tech</h3>
+              <p>
+                Seja para criar um site institucional impactante, um sistema interno complexo ou um aplicativo mobile completo, desenvolvemos cada linha de código com foco na experiência do usuário e na máxima performance.
+              </p>
+            </div>
+          </div>
+
+          <!-- BLOCO DE ARGUMENTAÇÃO PARA O CLIENTE -->
+          <div class="why-choose-us">
+            <h3>🛡️ Por Que Escolher a Lume Tech Para o Seu Projeto?</h3>
+            <p style="color: #e0f7fa; font-size: 1.05rem;">
+              Não entregamos apenas código; entregamos posicionamento de mercado e ferramentas que geram resultados concretos para o seu negócio:
+            </p>
+            <ul>
+              <li><strong>Presença Multiplataforma:</strong> Desenvolvemos sites, sistemas web e aplicativos móveis totalmente sincronizados.</li>
+              <li><strong>Design de Alto Padrão:</strong> Interfaces elegantes que passam credibilidade instantânea aos seus clientes.</li>
+              <li><strong>Arquitetura Moderna & Segura:</strong> Tecnologias atualizadas com criptografia e máxima velocidade de carregamento.</li>
+              <li><strong>Acompanhamento de Ponta a Ponta:</strong> Suporte contínuo para garantir que sua solução continue evoluindo no tempo.</li>
+            </ul>
+            <div style="text-align: center; margin-top: 20px;">
+              <a href="#contato" class="btn btn-primary">Iniciar Meu Projeto Agora</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="servicos">
+        <h2>Nossos Serviços</h2>
+        <div class="cards">
+          <!-- Card 1 -->
+          <div class="card" onclick="openModal('consutoria estrategica.png', 'Consultoria Estratégica')">
+            <img src="consutoria estrategica.png" alt="Consultoria Estratégica" />
+            <h3>Consultoria Estratégica</h3>
+            <p>Soluções personalizadas e projeção avançada para elevar sua marca ao status de referência no mercado.</p>
+            <span class="card-click-hint">🔍 Clique para ampliar a imagem</span>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card" onclick="openModal('desevolvimento digital.png', 'Desenvolvimento Digital')">
+            <img src="desevolvimento digital.png" alt="Desenvolvimento Digital C#" />
+            <h3>Desenvolvimento Web & Apps</h3>
+            <p>Criação de sites modernos e aplicativos móveis em C#, .NET e Flutter com arquitetura escalável.</p>
+            <span class="card-click-hint">🔍 Clique para ampliar a imagem</span>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card" onclick="openModal('suporte premium.png', 'Suporte Premium')">
+            <img src="suporte premium.png" alt="Suporte Premium" />
+            <h3>Suporte Premium</h3>
+            <p>Atendimento especializado, monitoramento preventivo global e suporte 24/7 para seus sistemas.</p>
+            <span class="card-click-hint">🔍 Clique para ampliar a imagem</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="catalogo" style="margin-top: 60px;">
+        <h2>Catálogo de Projetos</h2>
+        <div class="catalog">
+          <div class="plan">
+            <div class="level">Plano 1 - Básico</div>
+            <h3>Landing Page</h3>
+            <div class="price">R$ 800</div>
+            <ul>
+              <li>Landing page simples e rápida</li>
+              <li>Design limpo e responsivo</li>
+              <li>Até 4 seções de conteúdo</li>
+              <li>Formulário de contato e botão WhatsApp</li>
+            </ul>
+          </div>
+
+          <div class="plan featured">
+            <div class="level">Plano 2 - Recomendado</div>
+            <h3>Site Institucional</h3>
+            <div class="price">R$ 1.800</div>
+            <ul>
+              <li>Site completo com múltiplas páginas</li>
+              <li>Design interativo e sofisticado</li>
+              <li>Otimização avançada para SEO</li>
+              <li>Integração com sistemas e redes sociais</li>
+            </ul>
+          </div>
+
+          <div class="plan">
+            <div class="level">Plano 3 - Elite</div>
+            <h3>Apps & Sistemas Pro</h3>
+            <div class="price">R$ 3.500+</div>
+            <ul>
+              <li>Aplicativos móveis (Android / iOS)</li>
+              <li>Sistemas Web complexos sob medida</li>
+              <li>Integrações com APIs e Bancos de Dados</li>
+              <li>Estratégia de branding e suporte dedicado</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="contato" style="margin-top: 60px;">
+        <h2>Fale Conosco</h2>
+        <div class="contact-container">
+          <div class="contact-info">
+            <p>Entre em contato direto para agendar uma reunião ou solicitar um orçamento para o seu site ou aplicativo.</p>
+            
+            <div class="contact-item">
+              <div class="contact-icon">✉</div>
+              <div class="contact-details">
+                <h4>E-mail</h4>
+                <a href="mailto:fs4958082@gmail.com">fs4958082@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">💬</div>
+              <div class="contact-details">
+                <h4>WhatsApp / Telefone</h4>
+                <a href="https://wa.me/5541999902704" target="_blank">(41) 99990-2704</a>
+              </div>
+            </div>
+          </div>
+
+          <form class="contact-form" onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso!');">
+            <div class="form-group">
+              <input type="text" placeholder="Seu Nome" required />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Seu E-mail" required />
+            </div>
+            <div class="form-group">
+              <textarea rows="4" placeholder="Sua Mensagem..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="border: none; cursor: pointer; width: 100%;">Enviar Mensagem</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
+    <a href="https://wa.me/5541999902704" class="whatsapp-float" target="_blank" title="Fale Conosco no WhatsApp">
+      <svg viewBox="0 0 24 24">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+    </a>
+
+    <!-- Modal (Janela Flutuante para Leitura das Imagens) -->
+    <div id="image-modal" class="modal-overlay" onclick="closeModalOnOutside(event)">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <h3 id="modal-title">Visualização do Serviço</h3>
+        <img id="modal-img" src="" alt="Imagem Ampliada" />
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Lume Tech. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+      // Esconde a tela de intro/carregamento após 2.5 segundos
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const preloader = document.getElementById('preloader');
+          if (preloader) {
+            preloader.classList.add('preloader-hidden');
+          }
+        }, 2500);
+      });
+
+      function openModal(imageSrc, title) {
+        document.getElementById('modal-img').src = imageSrc;
+        document.getElementById('modal-title').innerText = title;
+        document.getElementById('image-modal').style.display = 'flex';
+      }
+
+      function closeModal() {
+        document.getElementById('image-modal').style.display = 'none';
+      }
+
+      function closeModalOnOutside(event) {
+        if (event.target.id === 'image-modal') {
+          closeModal();
+        }
+      }
+    </script>
+  </body>
+</html>
